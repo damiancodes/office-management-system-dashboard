@@ -1,63 +1,178 @@
-// src/components/layout/Header.jsx
-import { useEffect, useState } from 'react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/slices/authSlice';
+import logo from '../../assets/logo.png';
+import './Header.css';
 
 const Header = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useSelector((state) => state.auth);
+  
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
   
   const onLogout = () => {
     dispatch(logout());
     navigate('/login');
   };
   
+  // Function to get user initials
+  const getUserInitials = () => {
+    if (!user || !user.name) return 'U';
+    
+    const names = user.name.split(' ');
+    if (names.length === 1) return names[0].charAt(0).toUpperCase();
+    return (names[0].charAt(0) + names[names.length - 1].charAt(0)).toUpperCase();
+  };
+  
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+  
   return (
-    <Navbar bg="primary" variant="dark" expand="lg" className="mb-4">
-      <Container>
-        <Navbar.Brand as={Link} to="/">Office Management System</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          {user ? (
-            <>
-              <Nav className="me-auto">
-                <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-                {user.permissions.employees.view && (
-                  <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
-                )}
-                {user.permissions.assets.view && (
-                  <Nav.Link as={Link} to="/assets">Assets</Nav.Link>
-                )}
-                {user.permissions.expenses.view && (
-                  <Nav.Link as={Link} to="/expenses">Expenses</Nav.Link>
-                )}
-                {user.permissions.income.view && (
-                  <Nav.Link as={Link} to="/income">Income</Nav.Link>
-                )}
-                {user.permissions.analytics.view && (
-                  <Nav.Link as={Link} to="/analytics">Analytics</Nav.Link>
-                )}
-              </Nav>
-              <Nav>
-                <NavDropdown title={user.name} id="basic-nav-dropdown" align="end">
-                  <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            </>
-          ) : (
-            <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/login">Login</Nav.Link>
-              <Nav.Link as={Link} to="/register">Register</Nav.Link>
-            </Nav>
-          )}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div className="header">
+      <div className="header-brand">
+        <span>Office Management System</span>
+      </div>
+      
+      {user && (
+        <div className="header-navbar">
+          <ul className="header-nav">
+            <li className="header-nav-item">
+              <Link 
+                to="/dashboard" 
+                className={`header-nav-link ${isActive('/dashboard') ? 'active' : ''}`}
+              >
+                Dashboard
+              </Link>
+            </li>
+            
+            {user.permissions?.employees?.view && (
+              <li className="header-nav-item">
+                <Link 
+                  to="/employees" 
+                  className={`header-nav-link ${isActive('/employees') ? 'active' : ''}`}
+                >
+                  Employees
+                </Link>
+              </li>
+            )}
+            
+            {user.permissions?.assets?.view && (
+              <li className="header-nav-item">
+                <Link 
+                  to="/assets" 
+                  className={`header-nav-link ${isActive('/assets') ? 'active' : ''}`}
+                >
+                  Assets
+                </Link>
+              </li>
+            )}
+            
+            {user.permissions?.expenses?.view && (
+              <li className="header-nav-item">
+                <Link 
+                  to="/expenses" 
+                  className={`header-nav-link ${isActive('/expenses') ? 'active' : ''}`}
+                >
+                  Expenses
+                </Link>
+              </li>
+            )}
+            
+            {user.permissions?.income?.view && (
+              <li className="header-nav-item">
+                <Link 
+                  to="/income" 
+                  className={`header-nav-link ${isActive('/income') ? 'active' : ''}`}
+                >
+                  Income
+                </Link>
+              </li>
+            )}
+            
+            {user.permissions?.analytics?.view && (
+              <li className="header-nav-item">
+                <Link 
+                  to="/analytics" 
+                  className={`header-nav-link ${isActive('/analytics') ? 'active' : ''}`}
+                >
+                  Analytics
+                </Link>
+              </li>
+            )}
+          </ul>
+          
+          <div className="header-actions">
+            <button className="notification-btn">
+              <i className="bi bi-bell-fill"></i>
+              <span className="notification-badge">3</span>
+            </button>
+            
+            <div className="user-dropdown">
+              <button 
+                className="user-dropdown-toggle"
+                onClick={toggleDropdown}
+              >
+                <div className="user-avatar">
+                  {getUserInitials()}
+                </div>
+                <span className="user-name">{user.name}</span>
+                <i className="bi bi-chevron-down"></i>
+              </button>
+              
+              {dropdownOpen && (
+                <div className="user-dropdown-menu">
+                  <Link 
+                    to="/profile" 
+                    className="user-dropdown-item" 
+                    onClick={closeDropdown}
+                  >
+                    <i className="bi bi-person-circle"></i>
+                    <span>Profile</span>
+                  </Link>
+                  
+                  {user.role === 'admin' && (
+                    <Link 
+                      to="/users" 
+                      className="user-dropdown-item" 
+                      onClick={closeDropdown}
+                    >
+                      <i className="bi bi-people-fill"></i>
+                      <span>User Management</span>
+                    </Link>
+                  )}
+                  
+                  <div className="user-dropdown-divider"></div>
+                  
+                  <a 
+                    href="#" 
+                    className="user-dropdown-item" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      closeDropdown();
+                      onLogout();
+                    }}
+                  >
+                    <i className="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

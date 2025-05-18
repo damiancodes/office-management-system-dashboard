@@ -76,7 +76,7 @@ const EmployeeForm = ({ onClose }) => {
               value={formData.name}
               onChange={handleChange}
               required
-              placeholder="John Doe"
+              placeholder=""
             />
           </Form.Group>
         </Col>
@@ -89,7 +89,7 @@ const EmployeeForm = ({ onClose }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="john.doe@example.com"
+              placeholder=""
             />
           </Form.Group>
         </Col>
@@ -105,7 +105,7 @@ const EmployeeForm = ({ onClose }) => {
               value={formData.position}
               onChange={handleChange}
               required
-              placeholder="Software Developer"
+              placeholder=""
             />
           </Form.Group>
         </Col>
@@ -140,7 +140,7 @@ const EmployeeForm = ({ onClose }) => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="123-456-7890"
+              placeholder=""
             />
           </Form.Group>
         </Col>
@@ -155,7 +155,7 @@ const EmployeeForm = ({ onClose }) => {
               required
               min="0"
               step="1000"
-              placeholder="50000"
+              placeholder=""
             />
           </Form.Group>
         </Col>

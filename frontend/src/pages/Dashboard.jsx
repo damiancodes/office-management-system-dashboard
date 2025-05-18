@@ -3,12 +3,34 @@ import { useState, useEffect } from 'react';
 import { Row, Col, Card, Alert } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useSelector((state) => state.auth);
+  
+  // Check for analytics or dashboard permission
+  const canViewDashboard = user?.permissions?.analytics?.view || user?.role === 'admin';
+
+  if (!canViewDashboard) {
+    return (
+      <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '60vh' }}>
+        <svg width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" style={{ marginBottom: 24 }}>
+          <circle cx="60" cy="60" r="60" fill="#f5f7fb"/>
+          <path d="M40 80h40M60 40v20" stroke="#4568dc" strokeWidth="4" strokeLinecap="round"/>
+          <circle cx="60" cy="35" r="5" fill="#4568dc"/>
+        </svg>
+        <h2>Welcome, {user?.name || 'User'}!</h2>
+        <p className="text-muted mb-3" style={{ maxWidth: 340, textAlign: 'center' }}>
+          You do not have access to the admin dashboard.<br />
+          Please use the menu to access your available features.
+        </p>
+        <a href="/profile" className="btn btn-primary">Go to My Profile</a>
+      </div>
+    );
+  }
   
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -37,40 +59,36 @@ const Dashboard = () => {
     <div className="dashboard">
       <h1 className="mb-4">Dashboard</h1>
       
-      <Row>
-        <Col md={3}>
-          <Card className="mb-4 bg-primary text-white">
-            <Card.Body>
-              <h5>Employees</h5>
-              <h2>{dashboardData?.counts?.employees || 0}</h2>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3}>
-          <Card className="mb-4 bg-success text-white">
-            <Card.Body>
-              <h5>Assets</h5>
-              <h2>{dashboardData?.counts?.assets || 0}</h2>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3}>
-          <Card className="mb-4 bg-warning text-dark">
-            <Card.Body>
-              <h5>Monthly Income</h5>
-              <h2>${dashboardData?.financialSummary?.currentMonth?.income.toLocaleString() || 0}</h2>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3}>
-          <Card className="mb-4 bg-danger text-white">
-            <Card.Body>
-              <h5>Monthly Expenses</h5>
-              <h2>${dashboardData?.financialSummary?.currentMonth?.expenses.toLocaleString() || 0}</h2>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+      <div className="dashboard-cards-row">
+        <div className="dashboard-card bg-primary">
+          <div className="card-content">
+            <div className="card-title">Employees</div>
+            <div className="card-value">{dashboardData?.counts?.employees || 0}</div>
+          </div>
+          <span className="card-icon bi bi-people"></span>
+        </div>
+        <div className="dashboard-card bg-success">
+          <div className="card-content">
+            <div className="card-title">Assets</div>
+            <div className="card-value">{dashboardData?.counts?.assets || 0}</div>
+          </div>
+          <span className="card-icon bi bi-briefcase"></span>
+        </div>
+        <div className="dashboard-card bg-warning">
+          <div className="card-content">
+            <div className="card-title">Monthly Income</div>
+            <div className="card-value">Ksh{dashboardData?.financialSummary?.currentMonth?.income.toLocaleString() || 0}</div>
+          </div>
+          <span className="card-icon bi bi-wallet2"></span>
+        </div>
+        <div className="dashboard-card bg-danger">
+          <div className="card-content">
+            <div className="card-title">Monthly Expenses</div>
+            <div className="card-value">Ksh{dashboardData?.financialSummary?.currentMonth?.expenses.toLocaleString() || 0}</div>
+          </div>
+          <span className="card-icon bi bi-cash-stack"></span>
+        </div>
+      </div>
       
       <Row>
         <Col md={8}>
@@ -89,7 +107,7 @@ const Dashboard = () => {
                           <strong>{expense.title}</strong> - {expense.category}
                           <div className="text-muted small">{new Date(expense.date).toLocaleDateString()}</div>
                         </div>
-                        <span className="badge bg-danger rounded-pill">${expense.amount.toLocaleString()}</span>
+                        <span className="badge bg-danger rounded-pill">Ksh{expense.amount.toLocaleString()}</span>
                       </li>
                     ))}
                   </ul>
@@ -108,7 +126,7 @@ const Dashboard = () => {
                           <strong>{income.title}</strong> - {income.category}
                           <div className="text-muted small">{new Date(income.date).toLocaleDateString()}</div>
                         </div>
-                        <span className="badge bg-success rounded-pill">${income.amount.toLocaleString()}</span>
+                        <span className="badge bg-success rounded-pill">Ksh{income.amount.toLocaleString()}</span>
                       </li>
                     ))}
                   </ul>
@@ -131,18 +149,18 @@ const Dashboard = () => {
               
               <div className="d-flex justify-content-between mb-2">
                 <span>Income:</span>
-                <strong className="text-success">${dashboardData?.financialSummary?.currentMonth?.income.toLocaleString() || 0}</strong>
+                <strong className="text-success">Ksh{dashboardData?.financialSummary?.currentMonth?.income.toLocaleString() || 0}</strong>
               </div>
               
               <div className="d-flex justify-content-between mb-2">
                 <span>Expenses:</span>
-                <strong className="text-danger">${dashboardData?.financialSummary?.currentMonth?.expenses.toLocaleString() || 0}</strong>
+                <strong className="text-danger">Ksh{dashboardData?.financialSummary?.currentMonth?.expenses.toLocaleString() || 0}</strong>
               </div>
               
               <div className="d-flex justify-content-between mb-2">
                 <span>Profit:</span>
                 <strong className={dashboardData?.financialSummary?.currentMonth?.profit >= 0 ? "text-success" : "text-danger"}>
-                  ${dashboardData?.financialSummary?.currentMonth?.profit.toLocaleString() || 0}
+                  Ksh{dashboardData?.financialSummary?.currentMonth?.profit.toLocaleString() || 0}
                 </strong>
               </div>
             </Card.Body>

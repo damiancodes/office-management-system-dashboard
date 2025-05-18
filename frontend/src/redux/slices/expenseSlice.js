@@ -1,22 +1,22 @@
-// src/redux/slices/employeeSlice.js
+// 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import employeeService from '../../services/employeeService';
+import expenseService from '../../services/expenseService';
 
 const initialState = {
-  employees: [],
-  employee: null,
+  expenses: [],
+  expense: null,
   isLoading: false,
   isSuccess: false,
   isError: false,
   message: ''
 };
 
-// Get all employees
-export const getEmployees = createAsyncThunk(
-  'employees/getAll',
+// Get all expenses
+export const getExpenses = createAsyncThunk(
+  'expenses/getAll',
   async (_, thunkAPI) => {
     try {
-      return await employeeService.getEmployees();
+      return await expenseService.getExpenses();
     } catch (error) {
       const message = 
         (error.response && 
@@ -29,12 +29,12 @@ export const getEmployees = createAsyncThunk(
   }
 );
 
-// Get single employee
-export const getEmployee = createAsyncThunk(
-  'employees/get',
+// Get single expense
+export const getExpense = createAsyncThunk(
+  'expenses/get',
   async (id, thunkAPI) => {
     try {
-      return await employeeService.getEmployee(id);
+      return await expenseService.getExpense(id);
     } catch (error) {
       const message = 
         (error.response && 
@@ -47,12 +47,12 @@ export const getEmployee = createAsyncThunk(
   }
 );
 
-// Create employee
-export const createEmployee = createAsyncThunk(
-  'employees/create',
-  async (employeeData, thunkAPI) => {
+// Create expense
+export const createExpense = createAsyncThunk(
+  'expenses/create',
+  async (expenseData, thunkAPI) => {
     try {
-      return await employeeService.createEmployee(employeeData);
+      return await expenseService.createExpense(expenseData);
     } catch (error) {
       const message = 
         (error.response && 
@@ -65,12 +65,12 @@ export const createEmployee = createAsyncThunk(
   }
 );
 
-// Update employee
-export const updateEmployee = createAsyncThunk(
-  'employees/update',
-  async ({ id, employeeData }, thunkAPI) => {
+// Update expense
+export const updateExpense = createAsyncThunk(
+  'expenses/update',
+  async ({ id, expenseData }, thunkAPI) => {
     try {
-      return await employeeService.updateEmployee(id, employeeData);
+      return await expenseService.updateExpense(id, expenseData);
     } catch (error) {
       const message = 
         (error.response && 
@@ -83,12 +83,12 @@ export const updateEmployee = createAsyncThunk(
   }
 );
 
-// Delete employee
-export const deleteEmployee = createAsyncThunk(
-  'employees/delete',
+// Delete expense
+export const deleteExpense = createAsyncThunk(
+  'expenses/delete',
   async (id, thunkAPI) => {
     try {
-      await employeeService.deleteEmployee(id);
+      await expenseService.deleteExpense(id);
       return id;
     } catch (error) {
       const message = 
@@ -102,8 +102,8 @@ export const deleteEmployee = createAsyncThunk(
   }
 );
 
-export const employeeSlice = createSlice({
-  name: 'employees',
+export const expenseSlice = createSlice({
+  name: 'expenses',
   initialState,
   reducers: {
     reset: (state) => {
@@ -112,78 +112,78 @@ export const employeeSlice = createSlice({
       state.isError = false;
       state.message = '';
     },
-    setEmployee: (state, action) => {
-      state.employee = action.payload;
+    setExpense: (state, action) => {
+      state.expense = action.payload;
     }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getEmployees.pending, (state) => {
+      .addCase(getExpenses.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getEmployees.fulfilled, (state, action) => {
+      .addCase(getExpenses.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.employees = action.payload;
+        state.expenses = action.payload;
       })
-      .addCase(getEmployees.rejected, (state, action) => {
+      .addCase(getExpenses.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getEmployee.pending, (state) => {
+      .addCase(getExpense.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getEmployee.fulfilled, (state, action) => {
+      .addCase(getExpense.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.employee = action.payload;
+        state.expense = action.payload;
       })
-      .addCase(getEmployee.rejected, (state, action) => {
+      .addCase(getExpense.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(createEmployee.pending, (state) => {
+      .addCase(createExpense.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createEmployee.fulfilled, (state, action) => {
+      .addCase(createExpense.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.employees.push(action.payload);
+        state.expenses.push(action.payload);
       })
-      .addCase(createEmployee.rejected, (state, action) => {
+      .addCase(createExpense.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(updateEmployee.pending, (state) => {
+      .addCase(updateExpense.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateEmployee.fulfilled, (state, action) => {
+      .addCase(updateExpense.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.employees = state.employees.map(employee => 
-          employee._id === action.payload._id ? action.payload : employee
+        state.expenses = state.expenses.map(expense => 
+          expense._id === action.payload._id ? action.payload : expense
         );
-        state.employee = action.payload;
+        state.expense = action.payload;
       })
-      .addCase(updateEmployee.rejected, (state, action) => {
+      .addCase(updateExpense.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(deleteEmployee.pending, (state) => {
+      .addCase(deleteExpense.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteEmployee.fulfilled, (state, action) => {
+      .addCase(deleteExpense.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.employees = state.employees.filter(employee => 
-          employee._id !== action.payload
+        state.expenses = state.expenses.filter(expense => 
+          expense._id !== action.payload
         );
       })
-      .addCase(deleteEmployee.rejected, (state, action) => {
+      .addCase(deleteExpense.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -191,7 +191,8 @@ export const employeeSlice = createSlice({
   }
 });
 
-export const { reset, setEmployee } = employeeSlice.actions;
-export default employeeSlice.reducer;
+export const { reset, setExpense } = expenseSlice.actions;
+export default expenseSlice.reducer;
+
 
 

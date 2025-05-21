@@ -25,7 +25,7 @@ A comprehensive office management system built with the **MERN stack** (MongoDB,
         <p align="center">Comprehensive financial analytics with interactive charts</p>
       </td>
       <td width="50%">
-        <h3 align="center">👥 User Management</h3>
+        <h3 align="center"> User Management</h3>
         <img src="https://github.com/damiancodes/office-management-system-dashboard/blob/master/frontend/src/assets/images/usermanagement.png?raw=true" alt="User Management">
         <p align="center">Complete user profile management with role-based access</p>
       </td>
@@ -53,25 +53,25 @@ A comprehensive office management system built with the **MERN stack** (MongoDB,
   - Category-wise expense breakdown with filterable data
   - Monthly trends visualization with export capabilities
 
-- **💰 Expense Management**
+- ** Expense Management**
   - Track and categorize expenses with receipt upload
   - Recurring expense management with notification system
   - Payment method tracking with integration options
   - Multi-level approval workflow with audit trails
 
-- **👥 Employee Management**
+- ** Employee Management**
   - Comprehensive employee profiles with document storage
   - Granular permission-based access control
   - Department and team hierarchy management
   - Performance tracking and review system
 
-- **🔐 Authentication & Authorization**
+- ** Authentication & Authorization**
   - Secure JWT-based user authentication
   - Role-based access control with custom permissions
   - Protected routes with session management
   - Two-factor authentication (optional)
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 <div align="center">
   <table>
@@ -92,17 +92,17 @@ A comprehensive office management system built with the **MERN stack** (MongoDB,
       <td>
         <ul>
           <li>🟢 Node.js</li>
-          <li>⚡ Express.js</li>
-          <li>🍃 MongoDB</li>
-          <li>🔑 JWT for authentication</li>
-          <li>🔄 Mongoose for ODM</li>
+          <li> Express.js</li>
+          <li> MongoDB</li>
+          <li> JWT for authentication</li>
+          <li> Mongoose for ODM</li>
         </ul>
       </td>
     </tr>
   </table>
 </div>
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 office-management-system/
@@ -212,7 +212,7 @@ const addExpense = async (expenseData) => {
 };
 ```
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -222,11 +222,11 @@ Contributions make the open-source community an amazing place to learn, inspire,
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact
+##  Contact
 
 Damian - [GitHub Profile](https://github.com/damiancodes)
 

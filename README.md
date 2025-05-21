@@ -45,31 +45,18 @@ A comprehensive office management system built with the **MERN stack** (MongoDB,
   </table>
 </div>
 
-### Core Modules
+## Core Features
 
-- **📊 Analytics Dashboard**
-  - Real-time financial analytics with interactive charts
-  - Income vs Expenses tracking with trend analysis
-  - Category-wise expense breakdown with filterable data
-  - Monthly trends visualization with export capabilities
+<div align="center">
+  
+  <p align="center">
+    A comprehensive MERN-stack solution featuring financial analytics, expense tracking, 
+    employee management, and secure authentication with role-based access control.
+  </p>
+  
+  <img src="https://img.shields.io/badge/Built_with-MERN_Stack-00D8FF?style=flat-square&logo=react" />
+</div>
 
-- ** Expense Management**
-  - Track and categorize expenses with receipt upload
-  - Recurring expense management with notification system
-  - Payment method tracking with integration options
-  - Multi-level approval workflow with audit trails
-
-- ** Employee Management**
-  - Comprehensive employee profiles with document storage
-  - Granular permission-based access control
-  - Department and team hierarchy management
-  - Performance tracking and review system
-
-- ** Authentication & Authorization**
-  - Secure JWT-based user authentication
-  - Role-based access control with custom permissions
-  - Protected routes with session management
-  - Two-factor authentication (optional)
 
 ## 🛠️ Tech Stack
 
@@ -89,7 +76,7 @@ A comprehensive office management system built with the **MERN stack** (MongoDB,
   <img src="https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white" alt="Mongoose" />
 </div>
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 

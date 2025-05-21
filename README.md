@@ -71,37 +71,23 @@ A comprehensive office management system built with the **MERN stack** (MongoDB,
   - Protected routes with session management
   - Two-factor authentication (optional)
 
-##  Tech Stack
+## 🛠️ Tech Stack
 
 <div align="center">
-  <table>
-    <tr>
-      <th>Frontend</th>
-      <th>Backend</th>
-    </tr>
-    <tr>
-      <td>
-        <ul>
-          <li>⚛️ React.js</li>
-          <li>🔄 Redux for state management</li>
-          <li>🎨 React Bootstrap for UI components</li>
-          <li>📊 Recharts for data visualization</li>
-          <li>🌐 Axios for API calls</li>
-        </ul>
-      </td>
-      <td>
-        <ul>
-          <li>🟢 Node.js</li>
-          <li> Express.js</li>
-          <li> MongoDB</li>
-          <li> JWT for authentication</li>
-          <li> Mongoose for ODM</li>
-        </ul>
-      </td>
-    </tr>
-  </table>
+  <h3>Frontend</h3>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React.js" />
+  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white" alt="Redux" />
+  <img src="https://img.shields.io/badge/React_Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="React Bootstrap" />
+  <img src="https://img.shields.io/badge/Recharts-22B5BF?style=for-the-badge&logo=chart.js&logoColor=white" alt="Recharts" />
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" alt="Axios" />
+  
+  <h3>Backend</h3>
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" />
+  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white" alt="JWT" />
+  <img src="https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white" alt="Mongoose" />
 </div>
-
 ##  Project Structure
 
 ```

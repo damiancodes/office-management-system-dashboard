@@ -88,28 +88,6 @@ A comprehensive office management system built with the **MERN stack** (MongoDB,
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white" alt="JWT" />
   <img src="https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white" alt="Mongoose" />
 </div>
-##  Project Structure
-
-```
-office-management-system/
-├── frontend/               # React frontend
-│   ├── src/
-│   │   ├── assets/        # Images and static files
-│   │   ├── components/    # Reusable components
-│   │   ├── pages/         # Page components
-│   │   ├── redux/         # Redux store and slices
-│   │   ├── services/      # API services
-│   │   └── utils/         # Utility functions
-│   └── public/            # Public assets
-│
-└── backend/               # Node.js backend
-    ├── config/           # Configuration files
-    ├── controllers/      # Route controllers
-    ├── middleware/       # Custom middleware
-    ├── models/          # Database models
-    ├── routes/          # API routes
-    └── utils/           # Utility functions
-```
 
 ## 🚀 Getting Started
 
